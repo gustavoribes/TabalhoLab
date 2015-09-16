@@ -6,7 +6,6 @@
 package dao;
 
 import bean.Funcionario;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,19 +28,16 @@ public class FuncionarioDao {
 
     public void create(Funcionario func) throws SQLException {
         if (this.valida(func)) {
-            String sql = " INSERT INTO funcionario( nome, telefone, dataentrada, rg, cpf, cargo, salario, endereço, senha) " + // Insert Postgresql
-                    " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = " INSERT INTO funcionario( nome, dataentrada, rg, cargo, salario, senha) " + // Insert Postgresql
+                    " VALUES ( ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = this.conexao.prepareStatement(sql);
             pst.setString(1, func.getNome());
-            pst.setString(2, func.getTelefone());
             java.sql.Date dtSQL = new java.sql.Date(func.getDataentrada().getTime());
-            pst.setDate(3, dtSQL);
-            pst.setString(4, func.getRg());
-            pst.setString(5, func.getCpf());
-            pst.setString(6, func.getCargo());
-            pst.setString(7, func.getSalario());
-            pst.setString(8, func.getEndereço());
-            pst.setString(9, func.getSenha());
+            pst.setDate(2, dtSQL);
+            pst.setInt(3, func.getRg());            
+            pst.setString(4, func.getCargo());
+            pst.setInt(5, func.getSalario());
+            pst.setString(6, func.getSenha());
             pst.executeUpdate();
             pst.close();
         }
@@ -54,18 +50,15 @@ public class FuncionarioDao {
      */
     public void update(Funcionario func) throws SQLException {
         if (this.valida(func)) {
-            String sql = "UPDATE funcionario SET nome = ?, telefone = ?,  dataentrada = ?, rg = ?, cpf = ?, cargo = ?, salario = ?, endereço = ?, senha = ? WHERE  idfuncionario=?";
+            String sql = "UPDATE funcionario SET nome = ?, dataentrada = ?, rg = ?, cargo = ?, salario = ?, senha = ? WHERE  idfuncionario=?";
             PreparedStatement pst = this.conexao.prepareStatement(sql);
             pst.setString(1, func.getNome());
-            pst.setString(2, func.getTelefone());
-            pst.setDate(3, new java.sql.Date(func.getDataentrada().getTime()));
-            pst.setString(4, func.getRg());
-            pst.setString(5, func.getCpf());
-            pst.setString(6, func.getCargo());
-            pst.setString(7, func.getSalario());
-            pst.setString(8, func.getEndereço());
-            pst.setString(9, func.getSenha());
-            pst.setInt(10, func.getCod());
+            pst.setDate(2, new java.sql.Date(func.getDataentrada().getTime()));
+            pst.setInt(3, func.getRg());
+            pst.setString(4, func.getCargo());
+            pst.setInt(5, func.getSalario());
+            pst.setString(6, func.getSenha());
+            pst.setInt(7, func.getCod());
             pst.executeUpdate();
             pst.close();
         }
@@ -87,7 +80,7 @@ public class FuncionarioDao {
     
     public Funcionario retrieve(Funcionario func) throws SQLException {
         Funcionario funcRet = null;
-        String sql = "SELECT idfuncionario, nome, telefone, dataentrada, rg, cpf, cargo, salario, endereço, senha FROM funcionario WHERE idfuncionario=?";
+        String sql = "SELECT idfuncionario, nome, dataentrada, rg, cargo, salario, senha FROM funcionario WHERE idfuncionario=?";
         PreparedStatement pst = this.conexao.prepareStatement(sql);
         pst.setInt(1, func.getCod());
         ResultSet rs = pst.executeQuery();
@@ -97,12 +90,8 @@ public class FuncionarioDao {
             funcRet.setNome(rs.getString("nome"));
             funcRet.setCargo(rs.getString("cargo"));
             funcRet.setDataentrada(rs.getDate("dataentrada"));
-            funcRet.setTelefone(rs.getString("telefone"));
-            funcRet.setRg(rs.getString("rg"));
-            funcRet.setCpf(rs.getString("cpf"));
-            funcRet.setCargo(rs.getString("cargo"));
-            funcRet.setSalario(rs.getString("salario"));
-            funcRet.setEndereço(rs.getString("endereço"));
+            funcRet.setRg(rs.getInt("rg"));;
+            funcRet.setSalario(rs.getInt("salario"));
             funcRet.setSenha(rs.getString("senha"));
         }
         rs.close();
@@ -112,7 +101,7 @@ public class FuncionarioDao {
 
     public List<Funcionario> listaTodos() throws SQLException {
         List<Funcionario> lista = new ArrayList<Funcionario>();
-        String sql = "SELECT idfuncionario, nome, telefone, dataentrada, rg, cpf, cargo, salario, endereço, senha FROM funcionario ORDER BY idfuncionario";
+        String sql = "SELECT idfuncionario, nome, dataentrada, rg, cargo, salario, senha FROM funcionario ORDER BY idfuncionario";
         Statement st = this.conexao.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
@@ -121,10 +110,8 @@ public class FuncionarioDao {
             func.setNome(rs.getString("nome"));
             func.setCargo(rs.getString("cargo"));
             func.setDataentrada(rs.getDate("dataentrada"));
-            func.setRg(rs.getString("rg"));
-            func.setCpf(rs.getString("cpf"));
-            func.setEndereço(rs.getString("endereço"));
-            func.setSalario(rs.getString("salario"));
+            func.setRg(rs.getInt("rg"));
+            func.setSalario(rs.getInt("salario"));
             func.setSenha(rs.getString("senha"));
             lista.add(func);
         }
@@ -133,15 +120,15 @@ public class FuncionarioDao {
         return lista;
     }
 
-    public Funcionario retrieve(String login) throws SQLException {
+    public Funcionario retrieve(int login) throws SQLException {
         Funcionario usrDept = new Funcionario();
-        String sql = "SELECT idfuncionario,cpf,senha FROM funcionario WHERE cpf=?";
+        String sql = "SELECT idfuncionario,rg,senha FROM funcionario WHERE rg = ?";
         PreparedStatement pst = this.conexao.prepareStatement(sql);
-        pst.setString(1, login);
+        pst.setInt(1, login);
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
             usrDept.setCod(rs.getInt("idfuncionario"));
-            usrDept.setCpf(rs.getString("cpf"));
+            usrDept.setRg(rs.getInt("rg"));
             usrDept.setSenha(rs.getString("senha"));
         }
         rs.close();

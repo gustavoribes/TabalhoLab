@@ -30,7 +30,7 @@ public class FormLogin extends javax.swing.JFrame {
         boolean loginValido = false;
         try {
             FuncionarioDao usrDAO = new FuncionarioDao(ViewSistema.getConexao());
-            Funcionario usr = usrDAO.retrieve(this.txtCpf.getText());
+            Funcionario usr = usrDAO.retrieve(Integer.parseInt(this.txtRg.getText()));
             if (usr != null) {
                 loginValido = usr.validaSenha(new String(this.txtSenha.getPassword()));
             }
@@ -41,7 +41,7 @@ public class FormLogin extends javax.swing.JFrame {
             this.setVisible(false);
             JOptionPane.showMessageDialog(this.parent, "Usuário ou Senha Inválidos!", "Falha na Autenticação", JOptionPane.WARNING_MESSAGE);
             this.setVisible(true);
-            this.txtCpf.requestFocus();
+            this.txtRg.requestFocus();
         }else{
             setVisible(false);
             dispose();
@@ -58,7 +58,7 @@ public class FormLogin extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
+        txtRg = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -66,7 +66,7 @@ public class FormLogin extends javax.swing.JFrame {
         setTitle("Autenticação");
         setResizable(false);
 
-        jLabel1.setText("Cpf");
+        jLabel1.setText("Rg");
 
         jLabel2.setText("Senha");
 
@@ -93,8 +93,8 @@ public class FormLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -112,7 +112,7 @@ public class FormLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -141,7 +141,7 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton okButton;
-    private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextField txtRg;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

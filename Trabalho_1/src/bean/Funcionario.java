@@ -12,24 +12,37 @@ import java.util.Date;
  * @author bjewjb ndfas
  */
 public class Funcionario {
-    
+
     private int cod;
     private String nome;
-    private String telefone;
-    private String endereço;
-    private String cpf;
-    private String rg;
+    private int rg;
     private Date dataentrada;
     private String cargo;
-    private String salario;
+    private int salario;
     private String senha;
-    
-    public Funcionario(){
-        
+
+    public Funcionario() {
+
     }
-    
-    public Funcionario(int cod){
+
+    public Funcionario(int cod) {
         this.cod = cod;
+    }
+
+    public int getRg() {
+        return rg;
+    }
+
+    public void setRg(int rg) {
+        this.rg = rg;
+    }
+
+    public int getSalario() {
+        return salario;
+    }
+
+    public void setSalario(int salario) {
+        this.salario = salario;
     }
 
     public String getSenha() {
@@ -56,38 +69,6 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEndereço() {
-        return endereço;
-    }
-
-    public void setEndereço(String endereço) {
-        this.endereço = endereço;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
     public Date getDataentrada() {
         return dataentrada;
     }
@@ -104,16 +85,10 @@ public class Funcionario {
         this.cargo = cargo;
     }
 
-    public String getSalario() {
-        return salario;
-    }
-
-    public void setSalario(String salario) {
-        this.salario = salario;
-    }
-     /** 
-      * retirado do codigo exemplo!!
-     * Método utilizado para validar a senha do usuário
+    /**
+     * retirado do codigo exemplo!! Método utilizado para validar a senha do
+     * usuário
+     *
      * @param senha String a ser validada contra a senha do usuário
      * @return true se as duas senhas são iguais, ou false em caso contrário
      */
@@ -127,6 +102,7 @@ public class Funcionario {
         }
         return ret;
     }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -148,8 +124,5 @@ public class Funcionario {
         }
         return true;
     }
-        
-    
-    
-    
+
 }

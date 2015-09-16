@@ -33,6 +33,6 @@ public class Conexao {
      */
     public static Connection get() throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
-        return DriverManager.getConnection("jdbc:postgresql://localhost/Trabalho", "postgres", "123");
+        return DriverManager.getConnection("jdbc:postgresql://localhost/trabalho", "postgres", "123");
     }
 }
