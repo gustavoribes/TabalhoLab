@@ -111,6 +111,11 @@ public class Funcionario {
     }
 
     @Override
+    public String toString() {
+        return this.nome;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

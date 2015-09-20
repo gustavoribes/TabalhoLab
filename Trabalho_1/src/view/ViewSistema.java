@@ -20,6 +20,11 @@ public class ViewSistema extends javax.swing.JFrame {
 
     private static Connection conexao;
     private FormFuncionario formFuncionario;
+    private FormCliente formCliente;
+    private FormPeça formPeça;
+    private FormVeiculo formVeiculo;
+    private FormManutençao formManutencao;
+
     public static Connection getConexao() {
         return conexao;
     }
@@ -76,6 +81,11 @@ public class ViewSistema extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuItem3.setText("Veiculos ");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem1.setText("Funcionarios");
@@ -87,9 +97,19 @@ public class ViewSistema extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Clientes");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem5.setText("Ordens de serviço");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
@@ -115,7 +135,8 @@ public class ViewSistema extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        this.formPeça = new FormPeça();
+        this.jDesktopPane1.add(this.formPeça);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -136,9 +157,24 @@ public class ViewSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       this.formFuncionario = new FormFuncionario();
-       this.jDesktopPane1.add(this.formFuncionario);
+        this.formFuncionario = new FormFuncionario();
+        this.jDesktopPane1.add(this.formFuncionario);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        this.formCliente = new FormCliente();
+        this.jDesktopPane1.add(this.formCliente);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        this.formVeiculo = new FormVeiculo();
+        this.jDesktopPane1.add(this.formVeiculo);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        this.formManutencao = new FormManutençao();
+        this.jDesktopPane1.add(this.formManutencao);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

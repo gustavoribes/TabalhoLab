@@ -45,7 +45,7 @@ public class FormFuncionario extends javax.swing.JInternalFrame {
                 dtm.addRow(new Object[]{func.getCod(), func.getNome(), func.getRg(), func.getDataentrada(), func.getCargo(), func.getSalario()});
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, String.format("Erro ao ler os Departamentos:%s", ex.getMessage()), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, String.format("Erro ao ler os Funcionarios:%s", ex.getMessage()), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -106,6 +106,7 @@ public class FormFuncionario extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("Cadastro Funcionarios");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -352,25 +353,30 @@ public class FormFuncionario extends javax.swing.JInternalFrame {
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
 
-        Funcionario func = new Funcionario();
-        func.setNome(this.txtNome.getText());
-        func.setCargo(this.cargoTxt.getText());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
+            Funcionario func = new Funcionario();
+            func.setNome(this.txtNome.getText());
+            func.setCargo(this.cargoTxt.getText());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             func.setDataentrada(sdf.parse(this.dataTxt.getText()));
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Formato de data invalida");
-        }
-        try {
-            func.setRg(Integer.parseInt(this.rgTxt.getText()));
+            if (this.rgTxt.getText().length() == 10) {
+                func.setRg(Integer.parseInt(this.rgTxt.getText()));
+            } else {
+                JOptionPane.showMessageDialog(null, "Rg invalido!");
+                this.rgTxt.requestFocus();
+                return;
+            }
             func.setSalario(Integer.parseInt(this.salarioTxt.getText()));
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Número mal formatado [Rg|Salário]");
-        }
-        func.setSenha(this.senhaTxt.getText());
+            if (!this.senhaTxt.getText().isEmpty()) {
 
-        FuncionarioDao funcdao = new FuncionarioDao(ViewSistema.getConexao());
-        try {
+                func.setSenha(this.senhaTxt.getText());
+
+            }else{                
+                JOptionPane.showMessageDialog(null, "É obrigatorio informar uma senha!!");
+                this.senhaTxt.requestFocus();
+                return;
+            }
+            FuncionarioDao funcdao = new FuncionarioDao(ViewSistema.getConexao());
             int cod = this.intCampoTelas(this.codTxt.getText());
             if (cod > 0) {
                 func.setCod(cod);
@@ -386,7 +392,10 @@ public class FormFuncionario extends javax.swing.JInternalFrame {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
-
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Número mal formatado [Rg|Salário]");
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Formato de data invalida");
         }
     }//GEN-LAST:event_salvarButtonActionPerformed
 
