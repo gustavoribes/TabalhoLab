@@ -104,6 +104,11 @@ public class FormManutençao extends javax.swing.JInternalFrame {
         });
 
         jButton3.setText("Limpa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -282,6 +287,10 @@ public class FormManutençao extends javax.swing.JInternalFrame {
             this.atualizaLista();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.limpatela();
+    }//GEN-LAST:event_jButton3ActionPerformed
     private void atualizaComboVeiculo() {
         try {
             VeiculoDao clienteDAO = new VeiculoDao(ViewSistema.getConexao());
