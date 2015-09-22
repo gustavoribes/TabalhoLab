@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -67,11 +68,16 @@ public class VeiculoDao {
     }
 
     public void delete(Veiculo veiculo) throws SQLException {
+        try{
         String sql = "DELETE FROM veiculo WHERE idveiculo = ?";
         PreparedStatement pst = this.conexao.prepareStatement(sql);
         pst.setInt(1, veiculo.getId());
         pst.executeUpdate();
         pst.close();
+        }catch(SQLException ex){
+            
+            JOptionPane.showMessageDialog(null, "Nao é possivel excluir este veiculo.");
+        }
     }
 
     public Veiculo retrieve(Veiculo veiculo) throws SQLException {

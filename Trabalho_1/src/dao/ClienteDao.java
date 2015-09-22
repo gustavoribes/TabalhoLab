@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,11 +60,15 @@ public class ClienteDao {
 
 
     public void delete(Cliente cliente) throws SQLException {
+        try{
         String sql = "DELETE FROM cliente WHERE idcliente=?";
         PreparedStatement pst = this.conexao.prepareStatement(sql);
         pst.setInt(1, cliente.getId());
         pst.executeUpdate();
         pst.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Nao é possivel escluir este cliente , há veiculos em seu nome.");
+        }
     }
 
     

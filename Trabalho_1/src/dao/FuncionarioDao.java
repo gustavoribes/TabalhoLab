@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,7 +35,7 @@ public class FuncionarioDao {
             pst.setString(1, func.getNome());
             java.sql.Date dtSQL = new java.sql.Date(func.getDataentrada().getTime());
             pst.setDate(2, dtSQL);
-            pst.setInt(3, func.getRg());            
+            pst.setInt(3, func.getRg());
             pst.setString(4, func.getCargo());
             pst.setInt(5, func.getSalario());
             pst.setString(6, func.getSenha());
@@ -43,10 +44,12 @@ public class FuncionarioDao {
         }
     }
 
-        /**
+    /**
      * Atualiza o funcionario no SGBD.
+     *
      * @param func Funcionario a ser atualizado do SGBD
-     * @throws java.sql.SQLException Qualquer erro entre o Sistema e o Banco será devolvido nesta Exceção
+     * @throws java.sql.SQLException Qualquer erro entre o Sistema e o Banco
+     * será devolvido nesta Exceção
      */
     public void update(Funcionario func) throws SQLException {
         if (this.valida(func)) {
@@ -66,18 +69,23 @@ public class FuncionarioDao {
 
     /**
      * Remove o código do funcionario do SGBD.
+     *
      * @param func Funcionario a ser excluído. Necessita apenas do atributo COD
-     * @throws java.sql.SQLException Qualquer erro entre o Sistema e o Banco será devolvido nesta Exceção
+     * @throws java.sql.SQLException Qualquer erro entre o Sistema e o Banco
+     * será devolvido nesta Exceção
      */
     public void delete(Funcionario func) throws SQLException {
-        String sql = "DELETE FROM FUNCIONARIO WHERE idfuncionario=?";
-        PreparedStatement pst = this.conexao.prepareStatement(sql);
-        pst.setInt(1, func.getCod());
-        pst.executeUpdate();
-        pst.close();
+        try {
+            String sql = "DELETE FROM FUNCIONARIO WHERE idfuncionario=?";
+            PreparedStatement pst = this.conexao.prepareStatement(sql);
+            pst.setInt(1, func.getCod());
+            pst.executeUpdate();
+            pst.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Nao é possivel excluir este funcionario");
+        }
     }
 
-    
     public Funcionario retrieve(Funcionario func) throws SQLException {
         Funcionario funcRet = null;
         String sql = "SELECT idfuncionario, nome, dataentrada, rg, cargo, salario, senha FROM funcionario WHERE idfuncionario=?";

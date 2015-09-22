@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,11 +56,16 @@ public class PeçaDao {
 
 
     public void delete(Peça peça) throws SQLException {
+        try{
         String sql = "DELETE FROM peca WHERE idpeca=?";
         PreparedStatement pst = this.conexao.prepareStatement(sql);
         pst.setInt(1, peça.getIdpeça());
         pst.executeUpdate();
         pst.close();
+        }catch(SQLException ex){
+            
+            JOptionPane.showMessageDialog(null, "Nao é possivel excluir esta peça.");
+        }
     }
 
     
