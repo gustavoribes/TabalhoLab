@@ -5,7 +5,6 @@
  */
 package view;
 
-import bean.Cliente;
 import bean.Funcionario;
 import bean.Manutençao;
 import bean.Peça;
@@ -320,8 +319,8 @@ public class FormManutençao extends javax.swing.JInternalFrame {
             ComboBoxModel cbm = new DefaultComboBoxModel(v);
             this.pecaCombo.setModel(cbm);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, String.format("Erro ao ler os Veiculos:%s", ex.getMessage()), "Erro", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(FormVeiculo.class.getName()).log(Level.WARNING, "Erro ao ler os Veiculos", ex);
+            JOptionPane.showMessageDialog(null, String.format("Erro ao ler as:%s", ex.getMessage()), "Erro", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(FormVeiculo.class.getName()).log(Level.WARNING, "Erro ao ler as peças", ex);
         }
     }
 
@@ -339,7 +338,7 @@ public class FormManutençao extends javax.swing.JInternalFrame {
                 ret = true;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, String.format("Não foi possível carregar Funcionário: %s", ex.getMessage()), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, String.format("Não foi possível carregar as manutenções: %s", ex.getMessage()), "Erro", JOptionPane.ERROR_MESSAGE);
 
         }
         return ret;
@@ -355,7 +354,7 @@ public class FormManutençao extends javax.swing.JInternalFrame {
                 dtm.addRow(new Object[]{manut.getId(), manut.getVeiculo(), manut.getFuncionario(), manut.getPeça(), manut.getValor()});
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, String.format("Erro ao ler os Veiculos:%s", ex.getMessage()), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, String.format("Erro ao ler as manutenções:%s", ex.getMessage()), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
